@@ -46,9 +46,10 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./backend/Dockerfile
+        file: ./Dockerfile
         push: true
         platforms: linux/arm64
+        tags: user/app:latest
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
