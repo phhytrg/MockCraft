@@ -48,7 +48,7 @@ jobs:
         pull: true
         push: true
         platforms: linux/arm64
-        tags: user/app:latest
+        tags: name/app:1.0.0
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
