@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "com.example.mockdata.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Secret key."
+    },
+    {
+      "name": "com.example.mockdata.jwtExpirationMs",
+      "type": "java.lang.String",
+      "description": "Expiration Time."
+    }
+  ] }
