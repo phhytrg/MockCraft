@@ -57,7 +57,8 @@ jobs:
     #     platforms: linux/arm64
     #     tags: name/app:1.0.0
 
-    - name: Deploy to EC2
+    deploy:
+      # Deploy to EC2
       needs: build
       runs-on: [ip-172-31-45-136]
       steps:
