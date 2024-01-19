@@ -57,17 +57,17 @@ jobs:
     #     platforms: linux/arm64
     #     tags: name/app:1.0.0
 
-    deploy:
-      # Deploy to EC2
-      needs: build
-      runs-on: [ip-172-31-45-136]
-      steps:
-        - name: Pull image from Docker Hub
-          run: docker pull phhytrg/mockdata:latest
-        - name: Delete old container
-          run: docker rm -f mockdata
-        - name: Run docker container
-          run: docker run -d -p 8080:8080 --name mockdata phhytrg/mockdata:latest
+  deploy:
+    # Deploy to EC2
+    needs: build
+    runs-on: [ip-172-31-45-136]
+    steps:
+      - name: Pull image from Docker Hub
+        run: docker pull phhytrg/mockdata:latest
+      - name: Delete old container
+        run: docker rm -f mockdata
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name mockdata phhytrg/mockdata:latest
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
