@@ -35,10 +35,10 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Build and Push docker
-      uses: mr-smithers-excellent/docker-build-push@v3
+      uses: mr-smithers-excellent/docker-build-push@v6
       with:
         image: phhytrg/mockdata
-        tags: phhytrg/mockdata:latest
+        tags: v1, latest
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
