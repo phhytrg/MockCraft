@@ -10,9 +10,9 @@ name: Mockdata build
 
 on:
   push:
-    branches: [ "ci-cd" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "ci-cd" ]
+    branches: [ "main" ]
 
 jobs:
   build:
