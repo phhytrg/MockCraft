@@ -4,6 +4,7 @@ import com.example.mockdata.domain.EDataType;
 import com.example.mockdata.domain.payload.request.ColumnAttribute;
 import com.example.mockdata.domain.payload.request.GenerateMockDataRequest;
 import com.example.mockdata.domain.payload.response.MockDataGenerateResponse;
+import com.example.mockdata.service.MockDataService;
 import com.example.mockdata.service.impl.MockDataGenerateService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class MockDataController{
 
     private final MockDataGenerateService service;
+    private final MockDataService mockDataService;
 
     @GetMapping("/generate")
     ResponseEntity<?> generate(@RequestBody GenerateMockDataRequest request){
@@ -42,5 +44,10 @@ public class MockDataController{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("/all-types")
+    ResponseEntity<?> getAllTypes(){
+        return ResponseEntity.ok(mockDataService.getAllExampleTypes());
     }
 }

@@ -5,8 +5,10 @@ import com.example.mockdata.domain.DataType;
 import com.example.mockdata.domain.EDataType;
 import com.example.mockdata.domain.generate_by_external.RowNumber;
 import com.example.mockdata.service.MockDataService;
-import com.github.openjson.JSONArray;
-import com.github.openjson.JSONObject;
+import com.example.mockdata.utils.stategy.context.ExportContext;
+import com.example.mockdata.utils.stategy.strategies.ExportCsvStrategy;
+import com.example.mockdata.utils.stategy.strategies.ExportJsonStrategy;
+import com.example.mockdata.utils.stategy.strategies.ExportStrategy;
 
 import java.util.*;
 
@@ -43,10 +45,16 @@ public class MockDataBuilder {
     }
     public String build(){
         List<Map<String, DataType<?>>> data = getBuildData();
+
         return switch (this.format) {
-            case "json" -> buildJson(data);
-            case "tsv" -> null;
-            case "csv" -> buildCsv(data);
+            case "json" -> {
+                ExportContext exportContext = new ExportContext(new ExportJsonStrategy());
+                yield exportContext.export(data);
+            }
+            case "csv" -> {
+                ExportContext exportContext = new ExportContext(new ExportCsvStrategy());
+                yield exportContext.export(data);
+            }
             default -> null;
         };
     }
@@ -95,52 +103,52 @@ public class MockDataBuilder {
         }
     }
 
-    private String buildJson(List<Map<String, DataType<?>>> data){
-
-        JSONArray jsonArray = new JSONArray();
-
-        for (Map<String, DataType<?>> map : data) {
-            JSONObject json = new JSONObject();
-            for (String fieldName : map.keySet()) {
-                DataType<?> dataItem = map.get(fieldName);
-                if(dataItem == null){
-                    json.put(fieldName, JSONObject.NULL);
-                    continue;
-                }
-                json.put(fieldName, dataItem.getData());
-            }
-            jsonArray.put(json);
-        }
-
-        return jsonArray.toString();
-    }
-
-    private String buildCsv(List<Map<String, DataType<?>>> data){
-        List<String> fieldNames  = this.fields.keySet().stream().toList();
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (String fieldName : fieldNames) {
-            stringBuilder.append(fieldName);
-            stringBuilder.append(CSV_SEPARATOR);
-        }
-        stringBuilder.append("\n");
-
-        for (Map<String, DataType<?>> map : data) {
-            for (String fieldName : fieldNames) {
-                DataType<?> dataItem = map.get(fieldName);
-                if(dataItem == null){
-                    stringBuilder.append(CSV_SEPARATOR);
-                    continue;
-                }
-                stringBuilder.append(dataItem.getData());
-                stringBuilder.append(CSV_SEPARATOR);
-            }
-            stringBuilder.append("\n");
-        }
-
-        return stringBuilder.toString();
-    }
+//    private String buildJson(List<Map<String, DataType<?>>> data){
+//
+//        JSONArray jsonArray = new JSONArray();
+//
+//        for (Map<String, DataType<?>> map : data) {
+//            JSONObject json = new JSONObject();
+//            for (String fieldName : map.keySet()) {
+//                DataType<?> dataItem = map.get(fieldName);
+//                if(dataItem == null){
+//                    json.put(fieldName, JSONObject.NULL);
+//                    continue;
+//                }
+//                json.put(fieldName, dataItem.getData());
+//            }
+//            jsonArray.put(json);
+//        }
+//
+//        return jsonArray.toString();
+//    }
+//
+//    private String buildCsv(List<Map<String, DataType<?>>> data){
+//        List<String> fieldNames  = this.fields.keySet().stream().toList();
+//
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//        for (String fieldName : fieldNames) {
+//            stringBuilder.append(fieldName);
+//            stringBuilder.append(CSV_SEPARATOR);
+//        }
+//        stringBuilder.append("\n");
+//
+//        for (Map<String, DataType<?>> map : data) {
+//            for (String fieldName : fieldNames) {
+//                DataType<?> dataItem = map.get(fieldName);
+//                if(dataItem == null){
+//                    stringBuilder.append(CSV_SEPARATOR);
+//                    continue;
+//                }
+//                stringBuilder.append(dataItem.getData());
+//                stringBuilder.append(CSV_SEPARATOR);
+//            }
+//            stringBuilder.append("\n");
+//        }
+//
+//        return stringBuilder.toString();
+//    }
 
     public MockDataBuilder withValues(Map<String, List<String>> valuesMap) {
         this.valuesMap = valuesMap;

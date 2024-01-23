@@ -1,7 +1,10 @@
 package com.example.mockdata.service.impl;
 
+import com.example.mockdata.domain.Custom;
 import com.example.mockdata.domain.EDataType;
 import com.example.mockdata.domain.DataType;
+import com.example.mockdata.domain.generate_by_external.RowNumber;
+import com.example.mockdata.domain.payload.response.ExampleType;
 import com.example.mockdata.domain.self_generating_datatype.SelfGenerateValue;
 import com.example.mockdata.utils.factory.DataTypeFactory;
 import com.example.mockdata.repository.DataGenBaseClassRepository;
@@ -16,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -84,5 +88,31 @@ public class MockDataServiceImpl implements MockDataService {
         }
     }
 
+    @Override
+    public List<ExampleType> getAllExampleTypes() {
+        List<ExampleType> result = new ArrayList<>(List.of());
+
+        for(EDataType type : EDataType.values()){
+            ExampleType exampleType = new ExampleType();
+            exampleType.setName(type.getName());
+            exampleType.setType(type.getType());
+            exampleType.setExample(new ArrayList<>(List.of()));
+            for(int i = 0; i < 3; i++){
+                if(type == EDataType.ROW_NUMBER){
+                    exampleType.getExample().add(new RowNumber(i + 1));
+                }
+                else if(type == EDataType.CUSTOM){
+                    exampleType.getExample().add(new Custom("Custom Value " + i + 1));
+                }
+                else{
+                    exampleType.getExample().add(createInstance(type));
+                }
+            }
+            result.add(exampleType);
+        }
+
+        return result;
+
+    }
 
 }
