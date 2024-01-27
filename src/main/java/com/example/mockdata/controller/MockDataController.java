@@ -19,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/mock-data")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class MockDataController{
 
     private final MockDataGenerateService service;

@@ -96,6 +96,7 @@ public class MockDataServiceImpl implements MockDataService {
             ExampleType exampleType = new ExampleType();
             exampleType.setName(type.getName());
             exampleType.setType(type.getType());
+            exampleType.setTypeName(type.toString().toLowerCase());
             exampleType.setExample(new ArrayList<>(List.of()));
             for(int i = 0; i < 3; i++){
                 if(type == EDataType.ROW_NUMBER){
