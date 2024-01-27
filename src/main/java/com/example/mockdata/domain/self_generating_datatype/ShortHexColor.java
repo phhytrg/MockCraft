@@ -4,11 +4,11 @@ import com.example.mockdata.domain.DataType;
 
 public class ShortHexColor extends DataType<String> implements SelfGenerateValue<String> {
 
-    final char[] hexChars = {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e'};
+    private final char[] hexChars = {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e'};
 
     public ShortHexColor() {
         super();
-        this.generate();
+        this.data = this.generate();
     }
 
     @Override

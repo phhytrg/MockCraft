@@ -100,13 +100,13 @@ public class MockDataServiceImpl implements MockDataService {
             exampleType.setExample(new ArrayList<>(List.of()));
             for(int i = 0; i < 3; i++){
                 if(type == EDataType.ROW_NUMBER){
-                    exampleType.getExample().add(new RowNumber(i + 1));
+                    exampleType.getExample().add(new RowNumber(i + 1).getData().toString());
                 }
                 else if(type == EDataType.CUSTOM){
-                    exampleType.getExample().add(new Custom("Custom Value " + i + 1));
+                    exampleType.getExample().add(new Custom("Custom Value " + (i + 1)).getData());
                 }
                 else{
-                    exampleType.getExample().add(createInstance(type));
+                    exampleType.getExample().add(createInstance(type).getData().toString());
                 }
             }
             result.add(exampleType);

@@ -12,5 +12,5 @@ public class ExampleType {
     private String name;
     private String type;
     private String typeName;
-    List<DataType<?>> example;
+    List<String> example;
 }
