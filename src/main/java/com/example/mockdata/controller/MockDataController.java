@@ -33,7 +33,7 @@ public class MockDataController{
         ));
     }
 
-    @GetMapping("/generate/v2")
+    @PostMapping("/generate/v2")
     public void generateV2(@RequestBody GenerateMockDataRequest request, HttpServletResponse response){
         MockDataGenerateResponse response1 = new MockDataGenerateResponse(
                 request.getNumRows(),
